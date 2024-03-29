@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using PendeloApp.Models;
 
 namespace PendeloApp.Data
 {
@@ -9,5 +10,6 @@ namespace PendeloApp.Data
             : base(options)
         {
         }
+        public DbSet<PendeloApp.Models.KmPerDay> KmPerDay { get; set; } = default!;
     }
 }
