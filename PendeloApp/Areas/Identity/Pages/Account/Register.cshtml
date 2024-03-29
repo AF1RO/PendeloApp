@@ -1,0 +1,76 @@
+﻿@page
+@model RegisterModel
+@{
+    ViewData["Title"] = "Register";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<div class="row">
+    <div class="col-md-4">
+        <form id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post">
+            <h2>Create a new account.</h2>
+            <hr />
+            <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
+            <div class="form-floating mb-3">
+                <input asp-for="Input.CustomName" class="form-control" autocomplete="username" aria-required="true" placeholder="Username" />
+                <label asp-for="Input.CustomName">Username</label>
+                <span asp-validation-for="Input.CustomName" class="text-danger"></span>
+            </div>
+            <div class="form-floating mb-3">
+                <input asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true" placeholder="name@example.com" />
+                <label asp-for="Input.Email">Email</label>
+                <span asp-validation-for="Input.Email" class="text-danger"></span>
+            </div>
+            <div class="form-floating mb-3">
+                <input asp-for="Input.Password" class="form-control" autocomplete="new-password" aria-required="true" placeholder="Password" />
+                <label asp-for="Input.Password">Password</label>
+                <span asp-validation-for="Input.Password" class="text-danger"></span>
+            </div>
+            <div class="form-floating mb-3">
+                <input asp-for="Input.ConfirmPassword" class="form-control" autocomplete="new-password" aria-required="true" placeholder="Password" />
+                <label asp-for="Input.ConfirmPassword">Confirm Password</label>
+                <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+            </div>
+            <br />
+            <h2>Additional Information</h2>
+            <hr />
+            <div class="form-floating mb-3">
+                <input asp-for="Input.FirstName" class="form-control" aria-required="true" placeholder="First Name" />
+                <label asp-for="Input.FirstName">First Name</label>
+                <span asp-validation-for="Input.FirstName" class="text-danger"></span>
+            </div>
+            <div class="form-floating mb-3">
+                <input asp-for="Input.LastName" class="form-control" aria-required="true" placeholder="Last Name" />
+                <label asp-for="Input.LastName">Last Name</label>
+                <span asp-validation-for="Input.LastName" class="text-danger"></span>
+            </div>
+            <div class="form-floating mb-3">
+                <input asp-for="Input.About" class="form-control" aria-required="true" placeholder="About" />
+                <label asp-for="Input.About">About</label>
+                <span asp-validation-for="Input.About" class="text-danger"></span>
+            </div>
+            <div class="form-floating mb-3">
+                <input asp-for="Input.PhoneNumber" class="form-control" aria-required="true" placeholder="1234567890" />
+                <label asp-for="Input.PhoneNumber">Phone Number</label>
+                <span asp-validation-for="Input.PhoneNumber" class="text-danger"></span>
+            </div>
+            <div class="form-floating mb-3">
+                <input asp-for="Input.Birthday" type="date" class="form-control" aria-required="true" max="@DateTime.Today.ToString("yyyy-MM-dd")" />
+                <label asp-for="Input.Birthday">Birthday</label>
+                <span asp-validation-for="Input.Birthday" class="text-danger"></span>
+            </div>
+            <div class="form-floating mb-3" style="display: none;">
+                <input asp-for="Input.Created" type="datetime-local" class="form-control" value="@DateTime.Now.ToString("yyyy-MM-ddTHH:mm")" aria-required="true" />
+                <label asp-for="Input.Created">Created</label>
+                <span asp-validation-for="Input.Created" class="text-danger"></span>
+            </div>
+            <br />
+            <button id="registerSubmit" type="submit" class="w-100 btn btn-lg btn-primary">Register</button>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
