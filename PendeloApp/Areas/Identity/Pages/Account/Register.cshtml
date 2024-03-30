@@ -4,12 +4,10 @@
     ViewData["Title"] = "Register";
 }
 
-<h1>@ViewData["Title"]</h1>
-
-<div class="row">
-    <div class="col-md-4">
+<center>
+    <div class="col-md-5 shadow-lg p-3 mb-5 rounded border-dark" style="background-color: #ADBC9F;">
         <form id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post">
-            <h2>Create a new account.</h2>
+            <h1>@ViewData["Title"]</h1>
             <hr />
             <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
             <div class="form-floating mb-3">
@@ -33,7 +31,7 @@
                 <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
             </div>
             <br />
-            <h2>Additional Information</h2>
+            <h4>Additional Information</h4>
             <hr />
             <div class="form-floating mb-3">
                 <input asp-for="Input.FirstName" class="form-control" aria-required="true" placeholder="First Name" />
@@ -46,7 +44,7 @@
                 <span asp-validation-for="Input.LastName" class="text-danger"></span>
             </div>
             <div class="form-floating mb-3">
-                <input asp-for="Input.About" class="form-control" aria-required="true" placeholder="About" />
+                <textarea asp-for="Input.About" class="form-control" aria-required="true" placeholder="About"></textarea>
                 <label asp-for="Input.About">About</label>
                 <span asp-validation-for="Input.About" class="text-danger"></span>
             </div>
@@ -66,11 +64,18 @@
                 <span asp-validation-for="Input.Created" class="text-danger"></span>
             </div>
             <br />
-            <button id="registerSubmit" type="submit" class="w-100 btn btn-lg btn-primary">Register</button>
+            <button id="registerSubmit" type="submit" class="w-100 btn btn-lg" style="background-color: #2C7865; color: White;">Register</button>
         </form>
     </div>
-</div>
+</center>
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
 }
+
+<style>
+    center {
+        margin-top: 30px;
+        margin-bottom: 50px;
+    }
+</style>

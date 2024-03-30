@@ -30,7 +30,11 @@
         </dd>
     </dl>
 </div>
+<br />
 <div>
-    <a asp-action="Edit" asp-route-id="@Model?.ID">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <div class="btn-group" role="group" aria-label="Basic example">
+        <a asp-action="Edit" class="btn" asp-route-id="@Model?.ID" style="background-color: #2C7865; color: white;">Edit</a>
+        <a asp-action="Delete" class="btn btn-danger" asp-route-id="@Model?.ID">Delete</a>
+        <a asp-action="Index" class="btn btn-warning">Back to List</a>
+    </div>
 </div>

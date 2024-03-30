@@ -59,6 +59,30 @@ namespace PendeloApp.Areas.Identity.Pages.Account.Manage
             [Phone]
             [Display(Name = "Phone number")]
             public string PhoneNumber { get; set; }
+
+            [Required]
+            [Display(Name = "CustomName")]
+            public string CustomName { get; set; }
+
+            [Required]
+            [Display(Name = "FirstName")]
+            public string FirstName { get; set; }
+
+            [Required]
+            [Display(Name = "LastName")]
+            public string LastName { get; set; }
+
+            [Required]
+            [Display(Name = "About")]
+            public string About { get; set; }
+
+            [Required]
+            [Display(Name = "Created")]
+            public DateTime Created { get; set; }
+
+            [Required]
+            [Display(Name = "Birthday")]
+            public string Birthday { get; set; }
         }
 
         private async Task LoadAsync(ApplicationUser user)
@@ -70,7 +94,13 @@ namespace PendeloApp.Areas.Identity.Pages.Account.Manage
 
             Input = new InputModel
             {
-                PhoneNumber = phoneNumber
+                PhoneNumber = phoneNumber,
+                CustomName = user.CustomName,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                About = user.About,
+                Created = user.Created,
+                Birthday = user.Birthday
             };
         }
 
@@ -89,6 +119,12 @@ namespace PendeloApp.Areas.Identity.Pages.Account.Manage
         public async Task<IActionResult> OnPostAsync()
         {
             var user = await _userManager.GetUserAsync(User);
+            user.FirstName = Input.FirstName;
+            user.LastName = Input.LastName;
+            user.CustomName = Input.CustomName;
+            user.About = Input.About;
+            user.Created = Input.Created;
+            user.Birthday = Input.Birthday;
             if (user == null)
             {
                 return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");

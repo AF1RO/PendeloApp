@@ -30,10 +30,14 @@
             @Html.DisplayFor(model => model.Kilometers)
         </dd>
     </dl>
-    
+    <br />
     <form asp-action="Delete">
         <input type="hidden" asp-for="ID" />
-        <input type="submit" value="Delete" class="btn btn-danger" /> |
-        <a asp-action="Index">Back to List</a>
+        <br />
+        <div class="btn-group" role="group" aria-label="Basic example">
+            <input type="submit" value="Delete" class="btn btn-danger" />
+            <a asp-action="Edit" class="btn" asp-route-id="@Model?.ID" style="background-color: #2C7865; color: white;">Edit</a>
+            <a asp-action="Index" class="btn btn-warning">Back to List</a>
+        </div>
     </form>
 </div>

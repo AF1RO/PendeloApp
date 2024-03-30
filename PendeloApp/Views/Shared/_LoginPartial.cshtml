@@ -7,21 +7,39 @@
 @if (SignInManager.IsSignedIn(User))
 {
     <li class="nav-item">
-        <a  class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @User.Identity?.Name!</a>
+            <div class="dropdown">
+                <a class="btn btn-outline-warning dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="padding-left: 35px; padding-right: 35px;">
+                    Profile
+                </a>
+                <ul class="dropdown-menu" style="background-color: #2C7865; color: white;">
+                    <li><a class="dropdown-item" asp-area="Identity" asp-page="/Account/Manage/Index" style="background-color: #2C7865; color: white;">Profile Details</a></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a class="dropdown-item" asp-area="Identity" asp-page="/Account/Manage/Email" style="background-color: #2C7865; color: white;">Change Email</a></li>
+                    <li><a class="dropdown-item" asp-area="Identity" asp-page="/Account/Manage/ChangePassword" style="background-color: #2C7865; color: white;">Change Password</a></li>
+                    <li><a class="dropdown-item" asp-area="Identity" asp-page="/Account/Manage/PersonalData" style="background-color: #2C7865; color: white;">View Personal</a></li>
+                </ul>
+            </div>
     </li>
     <li class="nav-item">
-        <form  class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
-            <button  type="submit" class="nav-link btn btn-link text-dark">Logout</button>
+        <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                <button type="submit" class="btn btn-danger" style="padding-left: 35px; padding-right: 35px; margin-right: 25px; margin-left: 2px;">Logout</button>
         </form>
     </li>
 }
 else
 {
     <li class="nav-item">
-        <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Register">Register</a>
+            <a class="btn btn-warning" asp-area="Identity" asp-page="/Account/Register" style="padding-left: 35px; padding-right: 35px;">Register</a>
     </li>
     <li class="nav-item">
-        <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Login">Login</a>
+            <a class="btn btn-warning" asp-area="Identity" asp-page="/Account/Login" style="padding-left: 35px; padding-right: 35px; margin-right: 25px; margin-left: 2px;">Login</a>
     </li>
 }
 </ul>
+
+<style>
+    .nav-item{
+        margin-left: 2px;
+        margin-right: 2px;
+    }
+</style>

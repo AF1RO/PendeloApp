@@ -1,19 +1,23 @@
 ﻿@model IEnumerable<PendeloApp.Models.KmPerDay>
-
+@using Microsoft.AspNetCore.Identity
+@using PendeloApp.Data
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
 @{
     ViewData["Title"] = "Index";
     var totalKilometers = Model.Sum(k => k.Kilometers);
 }
 
-<h1>Index</h1>
+<h1>@User.Identity?.Name's Kilometers</h1>
 
+<p>
+    <a asp-action="Create" class="btn" style="background-color: #2C7865; color: white;">Register Kilometers</a>
+</p>
+<br />
 <div>
     Total Kilometers Driven: @totalKilometers
 </div>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
 <table class="table">
     <thead>
         <tr>
@@ -42,9 +46,11 @@
                 @Html.DisplayFor(modelItem => item.Kilometers)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.ID">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.ID">Delete</a>
+                <div class="btn-group" role="group" aria-label="Basic example">
+                    <a asp-action="Edit" asp-route-id="@item.ID" class="btn" style="background-color: #2C7865; color: white;">Edit</a>
+                    <a asp-action="Details" asp-route-id="@item.ID" class="btn" style="background-color: #2C7865; color: white; margin-left: 1px; margin-right: 2px;">Details</a>
+                    <a asp-action="Delete" asp-route-id="@item.ID" class="btn" style="background-color: #2C7865; color: white;">Delete</a>
+                </div>
             </td>
         </tr>
 }
