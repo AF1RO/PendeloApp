@@ -11,5 +11,6 @@ namespace PendeloApp.Data
         {
         }
         public DbSet<PendeloApp.Models.KmPerDay> KmPerDay { get; set; } = default!;
+        public DbSet<PendeloApp.Models.Bike> Bike { get; set; } = default!;
     }
 }

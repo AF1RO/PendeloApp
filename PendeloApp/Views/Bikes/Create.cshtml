@@ -1,0 +1,70 @@
+﻿@using System.Security.Claims
+@model PendeloApp.Models.Bike
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Bike</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Marke" class="control-label"></label>
+                <input asp-for="Marke" class="form-control" />
+                <span asp-validation-for="Marke" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Modell" class="control-label"></label>
+                <input asp-for="Modell" class="form-control" />
+                <span asp-validation-for="Modell" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Farbe" class="control-label"></label>
+                <input asp-for="Farbe" class="form-control" />
+                <span asp-validation-for="Farbe" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Gewicht" class="control-label"></label>
+                <input asp-for="Gewicht" class="form-control" />
+                <span asp-validation-for="Gewicht" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Gang" class="control-label"></label>
+                <input asp-for="Gang" class="form-control" />
+                <span asp-validation-for="Gang" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Beschreibung" class="control-label"></label>
+                <input asp-for="Beschreibung" class="form-control" />
+                <span asp-validation-for="Beschreibung" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Preis" class="control-label"></label>
+                <input asp-for="Preis" class="form-control" />
+                <span asp-validation-for="Preis" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="UserId" class="control-label"></label>
+                <input asp-for="UserId" class="form-control" value="@User.FindFirstValue(ClaimTypes.NameIdentifier)" readonly />
+                <span asp-validation-for="UserId" class="text-danger"></span>
+            </div>
+            <br />
+            <div class="form-group">
+                <div class="btn-group" role="group" aria-label="Basic example">
+                    <input type="submit" value="Create" class="btn" style="background-color: #2C7865; color: white;" />
+                    <a asp-action="Index" class="btn btn-warning">Back to List</a>
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -1,0 +1,75 @@
+﻿@model IEnumerable<PendeloApp.Models.Bike>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>@User.Identity?.Name's Bikes</h1>
+
+<p>
+    <a asp-action="Create" class="btn" style="background-color: #2C7865; color: white;">Register your Bike</a>
+</p>
+<br />
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Marke)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Modell)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Farbe)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Gewicht)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Gang)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Beschreibung)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Preis)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Marke)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Modell)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Farbe)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Gewicht)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Gang)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Beschreibung)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Preis)
+            </td>
+            <td>
+                <div class="btn-group" role="group" aria-label="Basic example">
+                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn" style="background-color: #2C7865; color: white;">Edit</a>
+                    <a asp-action="Details" asp-route-id="@item.Id" class="btn" style="background-color: #2C7865; color: white; margin-left: 1px; margin-right: 2px;">Details</a>
+                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn" style="background-color: #2C7865; color: white;">Delete</a>
+                </div>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

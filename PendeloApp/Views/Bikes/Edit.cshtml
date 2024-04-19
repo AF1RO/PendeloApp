@@ -1,0 +1,74 @@
+﻿@model PendeloApp.Models.Bike
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Bike</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group">
+                <label asp-for="Marke" class="control-label"></label>
+                <input asp-for="Marke" class="form-control" />
+                <span asp-validation-for="Marke" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Modell" class="control-label"></label>
+                <input asp-for="Modell" class="form-control" />
+                <span asp-validation-for="Modell" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Farbe" class="control-label"></label>
+                <input asp-for="Farbe" class="form-control" />
+                <span asp-validation-for="Farbe" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Gewicht" class="control-label"></label>
+                <input asp-for="Gewicht" class="form-control" />
+                <span asp-validation-for="Gewicht" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Gang" class="control-label"></label>
+                <input asp-for="Gang" class="form-control" />
+                <span asp-validation-for="Gang" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Beschreibung" class="control-label"></label>
+                <input asp-for="Beschreibung" class="form-control" />
+                <span asp-validation-for="Beschreibung" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Preis" class="control-label"></label>
+                <input asp-for="Preis" class="form-control" />
+                <span asp-validation-for="Preis" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="UserId" class="control-label"></label>
+                <input asp-for="UserId" class="form-control" readonly/>
+                <span asp-validation-for="UserId" class="text-danger"></span>
+            </div>
+            <br />
+            <div class="form-group">
+                <div class="btn-group" role="group" aria-label="Basic example">
+                    <input type="submit" value="Save" class="btn btn-primary" style="background-color: #2C7865; color: white;" />
+                    <a asp-action="Delete" class="btn btn-danger" asp-route-id="@Model?.Id">Delete</a>
+                    <a asp-action="Index" class="btn btn-warning">Back to List</a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
