@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
@@ -67,6 +68,9 @@ namespace PendeloApp.Controllers
         {
             var currentUser = await _userManager.GetUserAsync(User);
             workshipSupplier.UserID = currentUser.Id;
+            workshipSupplier.Latitude =  Convert.ToDouble(Request.Form["Latitude"], CultureInfo.InvariantCulture);
+            workshipSupplier.Longitude = Convert.ToDouble(Request.Form["Longitude"], CultureInfo.InvariantCulture);
+
             _context.Add(workshipSupplier);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
@@ -86,6 +90,7 @@ namespace PendeloApp.Controllers
             {
                 return NotFound();
             }
+
             ViewData["UserID"] = new SelectList(_context.Users, "Id", "Id", workshipSupplier.UserID);
             return View(workshipSupplier);
         }
@@ -99,7 +104,10 @@ namespace PendeloApp.Controllers
         {
             try
             {
+                workshipSupplier.Latitude = Convert.ToDouble(Request.Form["Latitude"], CultureInfo.InvariantCulture);
+                workshipSupplier.Longitude = Convert.ToDouble(Request.Form["Longitude"], CultureInfo.InvariantCulture);
                 _context.Update(workshipSupplier);
+               
                 await _context.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException)

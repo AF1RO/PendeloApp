@@ -42,6 +42,8 @@
                 <input asp-for="Phone" class="form-control" />
                 <span asp-validation-for="Phone" class="text-danger"></span>
             </div>
+            <div id="map" style="height: 400px; width: 100%;"></div>
+
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
@@ -54,5 +56,54 @@
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+    <!-- JavaScript-Code für die Google Maps-Anzeige -->
+    <script>
+        var map;
+        var marker;
+
+        function initMap() {
+            map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 12, // Zoom-Level anpassen
+                center: { lat: 10, lng: 10 } // Standard-Zentrum
+            });
+
+            // Klicken auf die Karte, um Marker zu setzen
+            map.addListener('click', function (event) {
+                placeMarker(event.latLng);
+            });
+        }
+
+        // Funktion zum Platzieren des Markers
+        function placeMarker(location) {
+            if (marker) {
+                marker.setPosition(location);
+            } else {
+                marker = new google.maps.Marker({
+                    position: location,
+                    map: map
+                });
+            }
+
+            // Setzen der Koordinaten in die entsprechenden Formularfelder
+            document.getElementById('Latitude').value = location.lat();
+            document.getElementById('Longitude').value = location.lng();
+        }
+
+        // Marker verschieben
+        function dragMarker() {
+            marker.setDraggable(true);
+            marker.addListener('dragend', function (event) {
+                document.getElementById('Latitude').value = this.getPosition().lat();
+                document.getElementById('Longitude').value = this.getPosition().lng();
+            });
+        }
+
+        google.maps.event.addDomListener(window, 'load', initMap);
+    </script>
+    <!-- Laden der Google Maps-API -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyArx4YET11CEy1NnXQbX-JJofiHJqqKFvo&callback=initMap" async defer></script>
 }
