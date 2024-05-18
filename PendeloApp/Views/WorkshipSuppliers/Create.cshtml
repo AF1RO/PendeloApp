@@ -22,12 +22,12 @@
                 <input asp-for="Services" class="form-control" />
                 <span asp-validation-for="Services" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            <div class="form-group" style="display:none">
                 <label asp-for="Latitude" class="control-label"></label>
                 <input asp-for="Latitude" class="form-control" />
                 <span asp-validation-for="Latitude" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            <div class="form-group" style="display:none">
                 <label asp-for="Longitude" class="control-label"></label>
                 <input asp-for="Longitude" class="form-control" />
                 <span asp-validation-for="Longitude" class="text-danger"></span>
@@ -66,18 +66,29 @@
         var marker;
 
         function initMap() {
+            var defaultLocation = { lat: 47.04760637404038, lng: 8.313552480613001 };
             map = new google.maps.Map(document.getElementById('map'), {
-                zoom: 12, // Zoom-Level anpassen
-                center: { lat: 10, lng: 10 } // Standard-Zentrum
+                zoom: 12, 
+                center: defaultLocation
             });
+            marker = new google.maps.Marker({
+                position: defaultLocation,
+                map: map,
+                draggable: true 
+            });
+            document.getElementById('Latitude').value = defaultLocation.lat;
+            document.getElementById('Longitude').value = defaultLocation.lng;
 
-            // Klicken auf die Karte, um Marker zu setzen
+
             map.addListener('click', function (event) {
                 placeMarker(event.latLng);
             });
+            marker.addListener('dragend', function (event) {
+                document.getElementById('Latitude').value = this.getPosition().lat();
+                document.getElementById('Longitude').value = this.getPosition().lng();
+            });
         }
 
-        // Funktion zum Platzieren des Markers
         function placeMarker(location) {
             if (marker) {
                 marker.setPosition(location);
@@ -88,18 +99,8 @@
                 });
             }
 
-            // Setzen der Koordinaten in die entsprechenden Formularfelder
             document.getElementById('Latitude').value = location.lat();
             document.getElementById('Longitude').value = location.lng();
-        }
-
-        // Marker verschieben
-        function dragMarker() {
-            marker.setDraggable(true);
-            marker.addListener('dragend', function (event) {
-                document.getElementById('Latitude').value = this.getPosition().lat();
-                document.getElementById('Longitude').value = this.getPosition().lng();
-            });
         }
 
         google.maps.event.addDomListener(window, 'load', initMap);

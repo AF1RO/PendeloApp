@@ -4,7 +4,7 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1>Your Workshipsuppliers</h1>
 
 <p>
     <a asp-action="Create">Create New</a>
@@ -17,12 +17,6 @@
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Services)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Latitude)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Longitude)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Email)
@@ -43,22 +37,16 @@
                 @Html.DisplayFor(modelItem => item.Services)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Latitude)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Longitude)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Email)
+                    @item.Email
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Phone)
             </td>
                 <td>
                     <div class="btn-group" role="group" aria-label="Basic example">
-                        <a asp-action="Edit" asp-route-id="@item.ID" class="btn" style="background-color: #2C7865; color: white;">Edit</a>
-                        <a asp-action="Details" asp-route-id="@item.ID" class="btn" style="background-color: #2C7865; color: white; margin-left: 1px; margin-right: 2px;">Details</a>
-                        <a asp-action="Delete" asp-route-id="@item.ID" class="btn" style="background-color: #2C7865; color: white;">Delete</a>
+                        <a asp-action="Edit" asp-route-id="@item.ID" class="btn" style="background-color: orange; color: white;">Edit</a>
+                        <a asp-action="Details" asp-route-id="@item.ID" class="btn" style="background-color: blue; color: white; margin-left: 1px; margin-right: 2px;">Details</a>
+                        <a asp-action="Delete" asp-route-id="@item.ID" class="btn" style="background-color: red; color: white;">Delete</a>
                     </div>
                 </td>
         </tr>
