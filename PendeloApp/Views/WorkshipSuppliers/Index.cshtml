@@ -7,8 +7,8 @@
 <h1>Your Workshipsuppliers</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
-    <a class="btn btn-info" asp-action="Map">Display Workshops</a>
+    <a class="btn" asp-action="Create" style="background-color: #2C7865; color: white;">Create New</a>
+    <a class="btn" asp-action="Map" style="background-color: #2C7865; color: white;">Display Bike Service Centers</a>
 </p>
 <table class="table">
     <thead>
@@ -45,9 +45,9 @@
             </td>
                 <td>
                     <div class="btn-group" role="group" aria-label="Basic example">
-                        <a asp-action="Edit" asp-route-id="@item.ID" class="btn" style="background-color: orange; color: white;">Edit</a>
-                        <a asp-action="Details" asp-route-id="@item.ID" class="btn" style="background-color: blue; color: white; margin-left: 1px; margin-right: 2px;">Details</a>
-                        <a asp-action="Delete" asp-route-id="@item.ID" class="btn" style="background-color: red; color: white;">Delete</a>
+                        <a asp-action="Edit" asp-route-id="@item.ID" class="btn" style="background-color: #2C7865; color: white;">Edit</a>
+                        <a asp-action="Details" asp-route-id="@item.ID" class="btn" style="background-color: #2C7865; color: white; margin-left: 1px; margin-right: 2px;">Details</a>
+                        <a asp-action="Delete" asp-route-id="@item.ID" class="btn" style="background-color: #2C7865; color: white;">Delete</a>
                     </div>
                 </td>
         </tr>

@@ -36,6 +36,15 @@ namespace PendeloApp.Controllers
             return View(kmPerDays);
         }
 
+        public async Task<IActionResult> UserKM()
+        {
+            var kmPerDayList = await _context.KmPerDay
+                                             .Include(k => k.User)
+                                             .ToListAsync();
+            return View(kmPerDayList);
+        }
+
+
         // GET: KmPerDays/Details/5
         public async Task<IActionResult> Details(int? id)
         {

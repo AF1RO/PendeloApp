@@ -2,4 +2,140 @@
     ViewData["Title"] = "Home Page";
 }
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bike Website</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #D9EDBF;
+        }
 
+        .hero-section {
+            color: black;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+            .hero-section h1 {
+                font-size: 4rem;
+                margin-bottom: 0.5rem;
+            }
+
+            .hero-section p {
+                font-size: 1.5rem;
+            }
+
+        .section {
+            padding: 60px 0;
+        }
+
+            .section h2 {
+                margin-bottom: 20px;
+            }
+
+        .section-bg {
+        }
+
+        .map-container {
+            height: 600px;
+            width: 100%;
+            border: 1px solid #ddd;
+        }
+
+        .image-section {
+            padding: 60px 0;
+        }
+
+            .image-section img {
+                max-width: 100%;
+                height: auto;
+            }
+    </style>
+</head>
+<body>
+    <div class="hero-section">
+        <h1>Welcome to <span><img src="images/pendelo.png" alt="PENDELO"/></span></h1>
+        <p>Register your bike, track your kilometers, and find nearby bike service centers.</p>
+    </div>
+    <hr />
+    <div class="section text-center">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h2>Register Your Bike</h2>
+                    <p>Keep track of your bike and details.</p>
+                    <a class="btn" asp-controller="Bikes" asp-action="Index" style="background-color: #2C7865; color: white;">Register Now</a>
+                </div>
+                <div class="col-md-6">
+                    <h2>Log Your Kilometers</h2>
+                    <p>Monitor your biking activity and view your progress over time.</p>
+                    <a class="btn" asp-controller="KmPerDays" asp-action="Index" style="background-color: #2C7865; color: white;">Log Kilometers</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr />
+    <div class="section text-center">
+        <div class="container">
+            <h2>Find a Company</h2>
+            <p>Locate nearby bike service centers and get the help you need.</p>
+            <div class="map-container" id="map"></div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        function initMap() {
+            var mapOptions = {
+                center: new google.maps.LatLng(47.066899, 8.278475),
+                zoom: 8,
+                mapTypeId: google.maps.MapTypeId.ROADMAP
+            };
+            var map = new google.maps.Map(document.getElementById("map"), mapOptions);
+
+            // Fetch suppliers and add markers
+            fetch('/WorkshipSuppliers/GetAllSuppliers')
+                .then(response => response.json())
+                .then(suppliers => {
+                    suppliers.forEach(supplier => {
+                        var marker = new google.maps.Marker({
+                            position: new google.maps.LatLng(supplier.latitude, supplier.longitude),
+                            map: map,
+                            title: supplier.companyName
+                        });
+
+                        var infowindow = new google.maps.InfoWindow({
+                            content: `<h3>${supplier.companyName}</h3>
+                                                              <p>${supplier.services}</p>
+                                                              <p>Email: ${supplier.email}</p>
+                                                              <p>Phone: ${supplier.phone}</p>`
+                        });
+
+                        marker.addListener('click', function () {
+                            infowindow.open(map, marker);
+                        });
+                    });
+                });
+        }
+
+        // Load the map script asynchronously
+        function loadScript() {
+            var script = document.createElement("script");
+            script.src = "https://maps.googleapis.com/maps/api/js?key=AIzaSyCZt8S5bNIGFX3Q_vFE3QVDXe8n1RNAWF8&callback=initMap";
+            script.async = true;
+            script.defer = true;
+            document.body.appendChild(script);
+        }
+        window.onload = loadScript;
+    </script>
+</body>
+</html>

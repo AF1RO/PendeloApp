@@ -1,0 +1,43 @@
+﻿@model IEnumerable<PendeloApp.Models.KmPerDay>
+@using Microsoft.AspNetCore.Identity
+@using PendeloApp.Data
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+@{
+    ViewData["Title"] = "User's Kilometers";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.User.UserName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DriveDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Kilometers)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.User.UserName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DriveDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Kilometers)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

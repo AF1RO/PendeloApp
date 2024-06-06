@@ -61,6 +61,14 @@ namespace PendeloApp.Controllers
             return distance;
         }
 
+        [HttpGet]
+        public IActionResult GetAllSuppliers()
+        {
+            var suppliers = _context.WorkshipSupplier.ToList();
+            return Json(suppliers);
+        }
+
+
         // GET: WorkshipSuppliers/Details/5
         public async Task<IActionResult> Details(int? id)
         {
