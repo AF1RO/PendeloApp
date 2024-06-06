@@ -33,6 +33,34 @@ namespace PendeloApp.Controllers
             return View(await applicationDbContext.ToListAsync());
         }
 
+        public IActionResult Map()
+        {
+            return View();
+        }
+
+        //GET: WorkshipSuppliers/GetNearby
+        [HttpGet]
+        public IActionResult GetNearby(double lat, double lng, double radius)
+        {
+            var suppliers = _context.WorkshipSupplier.ToList();
+            var nearbySuppliers = suppliers.Where(s => GetDistance(s.Latitude, s.Longitude, lat, lng) <= radius).ToList();
+
+            return Json(nearbySuppliers);
+        }
+
+        private double GetDistance(double lat1, double lon1, double lat2, double lon2)
+        {
+            var R = 6371; // Radius der Erde in km
+            var dLat = (lat2 - lat1) * Math.PI / 180;
+            var dLon = (lon2 - lon1) * Math.PI / 180;
+            var a = Math.Sin(dLat / 2) * Math.Sin(dLat / 2) +
+                    Math.Cos(lat1 * Math.PI / 180) * Math.Cos(lat2 * Math.PI / 180) *
+                    Math.Sin(dLon / 2) * Math.Sin(dLon / 2);
+            var c = 2 * Math.Atan2(Math.Sqrt(a), Math.Sqrt(1 - a));
+            var distance = R * c;
+            return distance;
+        }
+
         // GET: WorkshipSuppliers/Details/5
         public async Task<IActionResult> Details(int? id)
         {

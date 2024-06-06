@@ -1,0 +1,77 @@
+﻿@{
+    ViewData["Title"] = "Workshops in your Area!";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<div>
+    <label for="radius">Radius:</label>
+    <select id="radius" onchange="loadMap()">
+        <option value="5">5 km</option>
+        <option value="10">10 km</option>
+        <option value="20">20 km</option>
+    </select>
+</div>
+
+<div id="map" style="height: 500px; width: 100%;"></div>
+
+@section Scripts {
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCZt8S5bNIGFX3Q_vFE3QVDXe8n1RNAWF8"></script>
+    <script>
+        let map;
+        let userLocation = { lat: 0, lng: 0 };
+        let markers = [];
+
+        function initMap() {
+            map = new google.maps.Map(document.getElementById('map'), {
+                center: userLocation,
+                zoom: 12
+            });
+            loadMap();
+        }
+
+        function loadMap() {
+            // Entferne vorherige Marker
+            markers.forEach(marker => marker.setMap(null));
+            markers = [];
+
+            navigator.geolocation.getCurrentPosition(position => {
+                userLocation = {
+                    lat: position.coords.latitude,
+                    lng: position.coords.longitude
+                };
+                map.setCenter(userLocation);
+
+                const radius = document.getElementById('radius').value;
+                fetch(`/WorkshipSuppliers/GetNearby?lat=${userLocation.lat}&lng=${userLocation.lng}&radius=${radius}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        data.forEach(supplier => {
+                            const marker = new google.maps.Marker({
+                                position: { lat: supplier.latitude, lng: supplier.longitude },
+                                map: map,
+                                title: supplier.companyName
+                            });
+
+                            const infowindow = new google.maps.InfoWindow({
+                                content: `<h3>${supplier.companyName}</h3>
+                                                  <p>${supplier.services}</p>
+                                                  <p>Email: ${supplier.email}</p>
+                                                  <p>Phone: ${supplier.phone}</p>`
+                            });
+
+                            marker.addListener('click', () => {
+                                infowindow.open(map, marker);
+                            });
+
+                            markers.push(marker);
+                        });
+                    });
+            });
+        }
+
+        document.addEventListener("DOMContentLoaded", function () {
+            initMap();
+        });
+    </script>
+}
