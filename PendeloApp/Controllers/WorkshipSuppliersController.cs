@@ -27,9 +27,11 @@ namespace PendeloApp.Controllers
         }
 
         // GET: WorkshipSuppliers
+        [HttpGet("WorkshipSuppliers/GetFilteredByUser")]
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.WorkshipSupplier.Include(w => w.User);
+            var currentUser = await _userManager.GetUserAsync(User);
+            var applicationDbContext = _context.WorkshipSupplier.Include(w => w.User).Where(w => w.UserID == currentUser.Id);
             return View(await applicationDbContext.ToListAsync());
         }
 
