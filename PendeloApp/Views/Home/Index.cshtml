@@ -58,6 +58,47 @@
                 max-width: 100%;
                 height: auto;
             }
+
+        .top-user {
+            margin-top: 20px;
+            padding: 30px;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+
+            .top-user:hover {
+                transform: translateY(-5px);
+            }
+
+            .top-user h2 {
+                font-size: 2rem;
+                color: #2C7865;
+                margin-bottom: 20px;
+            }
+
+            .top-user p {
+                font-size: 1.25rem;
+                color: #333;
+                margin-bottom: 20px;
+            }
+
+        .btn-view-more {
+            background-color: #2C7865;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 1rem;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+
+            .btn-view-more:hover {
+                background-color: #1f5a48;
+            }
     </style>
 </head>
 <body>
@@ -88,6 +129,23 @@
             <h2>Find a Company</h2>
             <p>Locate nearby bike service centers and get the help you need.</p>
             <div class="map-container" id="map"></div>
+        </div>
+    </div>
+
+    <div class="section text-center">
+        <div class="container">
+            <div class="top-user">
+                <h2>Top Biker</h2>
+                @if (ViewBag.TopUser != null)
+                {
+                    <p><strong>@ViewBag.TopUser</strong> has logged the most kilometers: <strong>@ViewBag.TopUserKilometers</strong> km</p>
+                    <a asp-area="" asp-controller="KmPerDays" asp-action="Leaderboard" class="btn btn-view-more">View More</a>
+                }
+                else
+                {
+                    <p>No kilometers logged yet.</p>
+                }
+            </div>
         </div>
     </div>
 

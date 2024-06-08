@@ -1,0 +1,71 @@
+﻿@model IEnumerable<PendeloApp.Models.LeaderboardViewModel>
+
+@{
+    ViewData["Title"] = "Leaderboard";
+    int userRank = -1;
+    double? userKilometers = ViewBag.CurrentUserKilometers;
+    if (userKilometers != null)
+    {
+        userRank = Model
+            .Select((x, index) => new { x.UserName, Rank = index + 1 })
+            .FirstOrDefault(x => x.UserName == User.Identity.Name)?.Rank ?? -1;
+    }
+}
+
+<h2 class="my-4 text-center">Leaderboard</h2>
+
+<div class="container">
+    @if (userKilometers == null)
+    {
+        <div class="alert alert-info" role="alert">
+            Enter kilometers to see your ranking.
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-success" role="alert">
+            Your rank: <strong>@userRank</strong>, Kilometers: <strong>@userKilometers</strong>
+        </div>
+    }
+
+    <div class="table-responsive">
+        <table class="table table-striped table-hover">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Rank</th>
+                    <th scope="col">Username</th>
+                    <th scope="col">Total Kilometers</th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (int i = 0; i < Model.Count(); i++)
+                {
+                    <tr>
+                        <td>@(i + 1)</td>
+                        <td>@Model.ElementAt(i).UserName</td>
+                        <td>@Model.ElementAt(i).TotalKilometers</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<style>
+    .alert {
+        margin-top: 20px;
+    }
+
+    .table-responsive {
+        margin-top: 20px;
+    }
+
+    .thead-dark {
+        background-color: #343a40;
+        color: white;
+    }
+
+    .table-hover tbody tr:hover {
+        background-color: #f1f1f1;
+    }
+</style>

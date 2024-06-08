@@ -43,7 +43,8 @@ namespace PendeloApp.Controllers
                                              .ToListAsync();
             return View(kmPerDayList);
         }
-
+        //Get Get LeaderBorad of KmPerDay by User
+       
 
         // GET: KmPerDays/Details/5
         public async Task<IActionResult> Details(int? id)
@@ -62,6 +63,31 @@ namespace PendeloApp.Controllers
             }
 
             return View(kmPerDay);
+        }
+        public async Task<IActionResult> LeaderBoard()
+        {
+            var currentUser = await _userManager.GetUserAsync(User);
+
+            var leaderboard = await _context.KmPerDay
+                .GroupBy(k => k.User)
+                .Select(g => new
+                {
+                    User = g.Key,
+                    TotalKilometers = g.Sum(k => k.Kilometers)
+                })
+                .OrderByDescending(x => x.TotalKilometers)
+                .ToListAsync();
+
+            var leaderboardViewModel = leaderboard.Select(x => new LeaderboardViewModel
+            {
+                UserName = x.User.UserName,
+                TotalKilometers = x.TotalKilometers
+            }).ToList();
+
+            var currentUserEntry = leaderboardViewModel.FirstOrDefault(x => x.UserName == currentUser.UserName);
+            ViewBag.CurrentUserKilometers = currentUserEntry?.TotalKilometers;
+
+            return View(leaderboardViewModel);
         }
 
         // GET: KmPerDays/Create
