@@ -1,0 +1,83 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using PendeloApp.Data
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+@model Tuple<IEnumerable<ApplicationUser>, PendeloApp.Models.AdminStatisticsViewModel>
+
+@{
+    ViewData["Title"] = "Current Users";
+}
+
+<h2>@ViewData["Title"]</h2>
+<div>
+    <p>Total Number of Users: @Model.Item2.UserCount</p>
+    <p>Total Number of Bikes: @Model.Item2.BikeCount</p>
+</div>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Item1.FirstOrDefault().Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Item1.FirstOrDefault().UserName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Item1.FirstOrDefault().Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Item1.FirstOrDefault().PhoneNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Item1.FirstOrDefault().FirstName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Item1.FirstOrDefault().LastName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Item1.FirstOrDefault().About)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Item1.FirstOrDefault().Birthday)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Item1.FirstOrDefault().Created)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Item1)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CustomName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PhoneNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FirstName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LastName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.About)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Birthday)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Created)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

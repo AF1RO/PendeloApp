@@ -34,6 +34,12 @@
                         <li class="nav-item">
                             <a class="btn btn-outline-warning" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <li class="nav-item">
+                                <a class="btn btn-outline-warning" asp-area="" asp-controller="Home" asp-action="ShowUsers">Show Users</a>
+                            </li>
+                        }
                     </ul>
                     <partial name="_LoginPartial" />
                 </div>
